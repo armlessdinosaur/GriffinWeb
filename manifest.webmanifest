@@ -1,0 +1,15 @@
+{
+    "name": "GriffinWeb",
+    "short_name": "Griffin",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "FDF0D5",
+    "description": "Proste aplikacja z rozkładami ZDiTM Szczecin.",
+    "icons": [
+        {
+            "src": "favicon.png",
+            "sizes": "48x48",
+            "type": "image/png"
+        }
+    ]
+}

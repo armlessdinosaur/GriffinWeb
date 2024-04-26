@@ -2,15 +2,14 @@ body{
     background-color: #FDF0D5;
     color: #003049;
     font-family: "Kode Mono", monospace;
-    font-optical-sizing: auto;
     font-weight: normal;
     font-style: normal;
     font-size: 16pt;
 }
-h1,h2{
+h1,h2,h4{
     color: #780000;
     font-family: "Jacquarda Bastarda 9", serif;
-    font-weight: 400;
+    font-weight: 500;
     font-style: normal;
 }
 h1{
@@ -18,7 +17,29 @@ h1{
 }
 h3{
     color:#669BBC; 
+    font-weight: 500;
 }
 li{
     list-style-type: none;
+    
+}
+main{
+    width: 100%;
+}
+h2{
+    border-bottom-style: solid;
+    padding-bottom: 0.7em;
+}
+a{
+    color:#780000;
+    text-decoration: none;
+}
+.tram{
+    color: #669BBC;
+}
+.bus{
+    color: #606C38;
+}
+.expressBus{
+    color: #780000;
 }

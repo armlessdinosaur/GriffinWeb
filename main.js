@@ -7,7 +7,9 @@
         this.createStopBoard();
     }
     createStopBoard(){
-        //Komunikuje się z API by nadać nazwę i utworzyć nagłówek
+        //Komunikuje się z API by nadać nazwę, utworzyc sekcje z przystankiem i wszystko inne
+        let stopBoard = document.createElement("section");
+        stopBoard.className = "stopBoard";
         fetch(this.APIUrl)
             .then((response) => response.json())
             .then(result => {
@@ -15,7 +17,7 @@
                 console.log(this.stopName);
                 this.documentHeader = document.createElement("h3");
                 this.documentHeader.appendChild(document.createTextNode(this.stopName + " (" + this.stopNumber + ") "));
-                departureBoard.appendChild(this.documentHeader);
+                stopBoard.appendChild(this.documentHeader);
                 //this.createDeparturesList();
             });
 
@@ -35,13 +37,12 @@
                         this.documentDepartureList[i].appendChild(document.createTextNode(this.departuresList[i].line_number + " " + this.departuresList[i].direction + " → " + this.departuresList[i].time_scheduled));
                     }
                     
-                    departureBoard.appendChild(this.documentDepartureList[i]);
+                    stopBoard.appendChild(this.documentDepartureList[i]);
                 }
             });
+        departureBoard.appendChild(stopBoard);
     }
-    
 }
-
 
 const departureBoard = document.getElementById("departureBoard");
 var stops = []; //tworzy array przystanków
