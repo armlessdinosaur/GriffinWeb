@@ -36,7 +36,13 @@
                     }else{
                         this.documentDepartureList[i].appendChild(document.createTextNode(this.departuresList[i].line_number + " " + this.departuresList[i].direction + " → " + this.departuresList[i].time_scheduled));
                     }
-                    
+                    if("ABCDEFGHIJKLMNOP".includes(this.departuresList[i].line_number)){
+                        this.documentDepartureList[i].className = "expressBus";
+                    }else if(Number(this.departuresList[i].line_number) <= 12){
+                        this.documentDepartureList[i].className = "tram";
+                    }else{
+                        this.documentDepartureList[i].className = "bus";
+                    }
                     stopBoard.appendChild(this.documentDepartureList[i]);
                 }
             });
@@ -48,6 +54,7 @@ const departureBoard = document.getElementById("departureBoard");
 var stops = []; //tworzy array przystanków
 stops[0] = new Stop(13331);
 stops[1] = new Stop(13321);
+stops[2] = new Stop(14011);
 console.log(stops[0].stopName + stops[0].stopNumber + stops[0].APIUrl);
 
 
