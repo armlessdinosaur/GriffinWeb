@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Jacquarda+Bastarda+9&family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
-  
+
   <link rel="stylesheet" type="text/css" href="style.css" />
 
   <link rel="icon" href="favicon.png">
@@ -35,17 +35,22 @@
       </section>
       <section id="controlBoard">
         <h2>Ustawienia</h2>
-        <p>Już wkrótce!</p>
+        <h3>Dodaj przystanki</h3>
+        <form class="" action="index.html" method="post" onkeydown="return event.key != 'Enter';">
+          <input type="text" name="" value="" placeholder="Wpisz numer przystanku" class="textField" id="stopField">
+          <input type="button" name="" value="Dodaj" class="inputButton" id="addButton">
+          <input type="button" name="" value="Usuń" class="inputButton" id="removeButton">
+        </form>
       </section>
     </main>
     <footer>
       <h2>O projekcie</h2>
       <p>Prosty interfejs do wyświetlania odjazdów na wybranym przystanku w Szczecinie przy pomocy GTFS-RT dostarczonemu przez ZDiTM.
-      Jeśli wyświetla się czas w minutach, to dane są na żywo, jeśli wyświetla się godzina odjazdu, to pochodzi ona ze statycznego 
+      Jeśli wyświetla się czas w minutach, to dane są na żywo, jeśli wyświetla się godzina odjazdu, to pochodzi ona ze statycznego
         rozkładu jazdy.</p>
       <h4>Napisane z &lt;3 w Szczecinie - moka</h4>
     </footer>
-    
+
     <script src="main.js"></script>
 </body>
 

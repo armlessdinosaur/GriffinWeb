@@ -21,13 +21,15 @@ h3{
 }
 li{
     list-style-type: none;
-    
+
 }
-main{
+main,nav,footer{
     width: 100%;
+    max-width: 500px;
 }
 h2{
     border-bottom-style: solid;
+    border-width: 0.08em;
     padding-bottom: 0.7em;
 }
 a{
@@ -42,4 +44,36 @@ a{
 }
 .expressBus{
     color: #780000;
+}
+form{
+    color: #003049;
+    font-family: "Kode Mono", monospace;
+    font-weight: normal;
+    font-style: normal;
+    font-size: 16pt;
+}
+.inputButton,.textField{
+    font-family: inherit;
+    font-size: 1em;
+    background-color: inherit;
+    border-color: #003049;
+    padding: 1em;
+    border-width: 0.1em;
+    border-radius: 0;
+    width: 100%;
+}
+.textField::placeholder{
+    color: #003049;
+}
+#addButton{
+  background-color: #606C38;
+  color: #FDF0D5;
+  border: none;
+  padding: 1.1em;
+}
+#removeButton{
+  background-color: #780000;
+  color: #FDF0D5;
+  border: none;
+  padding: 1.1em;
 }

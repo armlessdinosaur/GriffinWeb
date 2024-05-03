@@ -4,57 +4,101 @@
         this.APIUrl = "https://www.zditm.szczecin.pl/api/v1/displays/"+stopNumber;
         this.departuresList = [];
         this.stopName = "";
-        this.createStopBoard();
     }
-    createStopBoard(){
-        //Komunikuje się z API by nadać nazwę, utworzyc sekcje z przystankiem i wszystko inne
-        let stopBoard = document.createElement("section");
-        stopBoard.className = "stopBoard";
-        fetch(this.APIUrl)
-            .then((response) => response.json())
-            .then(result => {
-                this.stopName = result.stop_name; //nadaje nazwę przystankowi
-                console.log(this.stopName);
-                this.documentHeader = document.createElement("h3");
-                this.documentHeader.appendChild(document.createTextNode(this.stopName + " (" + this.stopNumber + ") "));
-                stopBoard.appendChild(this.documentHeader);
-                //this.createDeparturesList();
-            });
 
-            //tworzy początkową listę przystanków
-            fetch(this.APIUrl)
+}
+
+function createDepartureBoard(){
+  //tworzy CAŁĄ tablicę z odjazdami
+    const departureBoard = document.getElementById("departureBoard");
+    let stopBoards = [];
+    let documentHeaders = [];
+    if (userPreferences.stops != null){
+      for (let i = 0; i < userPreferences.stops.length; i++){
+        stopBoards[i] = document.createElement("section");
+        fetch(userPreferences.stops[i].APIUrl)
             .then((response) => response.json())
             .then(result => {
-                this.departuresList = result.departures; //nadaje nazwę przystankowi
-                console.log(this.departuresList[0]);
-                this.documentDepartureList = [];
-                for(let i = 0; i < 5; i++){
-                    this.documentDepartureList[i] = document.createElement("li");
-                    if(this.departuresList[i].time_real != null)
+                //Komunikuje się z API by nadać nazwę, utworzyc sekcje z przystankiem i wszystko inne
+                console.log(userPreferences.stops[i]);
+                userPreferences.stops[i].stopName = result.stop_name; //nadaje nazwę przystankowi
+                console.log(userPreferences.stops[i].stopName);
+                documentHeaders[i] = document.createElement("h3");
+                documentHeaders[i].appendChild(document.createTextNode(userPreferences.stops[i].stopName + " (" + userPreferences.stops[i].stopNumber + ") "));
+                stopBoards[i].appendChild(documentHeaders[i]);
+
+                //tworzy listę przystanków
+                userPreferences.stops[i].departuresList = result.departures; //nadaje nazwę przystankowi
+                let documentDepartureList = [];
+                for(let j = 0; j < 5; j++){ //dajemy inny iterator, żeby się nie myliło
+                    documentDepartureList[j] = document.createElement("li");
+                    if(userPreferences.stops[i].departuresList[j].time_real != null)
                     {
-                        this.documentDepartureList[i].appendChild(document.createTextNode(this.departuresList[i].line_number + " " + this.departuresList[i].direction + " → " + this.departuresList[i].time_real + " min"));
+                        documentDepartureList[j].appendChild(document.createTextNode(userPreferences.stops[i].departuresList[j].line_number + " " + userPreferences.stops[i].departuresList[j].direction + " → " + userPreferences.stops[i].departuresList[j].time_real + " min"));
                     }else{
-                        this.documentDepartureList[i].appendChild(document.createTextNode(this.departuresList[i].line_number + " " + this.departuresList[i].direction + " → " + this.departuresList[i].time_scheduled));
+                        documentDepartureList[j].appendChild(document.createTextNode(userPreferences.stops[i].departuresList[j].line_number + " " + userPreferences.stops[i].departuresList[j].direction + " → " + userPreferences.stops[i].departuresList[j].time_scheduled));
                     }
-                    if("ABCDEFGHIJKLMNOP".includes(this.departuresList[i].line_number)){
-                        this.documentDepartureList[i].className = "expressBus";
-                    }else if(Number(this.departuresList[i].line_number) <= 12){
-                        this.documentDepartureList[i].className = "tram";
+                    if("QWERTYUIOPASDFGHJKLZXCVBNM".includes(userPreferences.stops[i].departuresList[i].line_number)){
+                        documentDepartureList[j].className = "expressBus";
+                    }else if(Number(userPreferences.stops[i].departuresList[i].line_number) <= 12){
+                        documentDepartureList[j].className = "tram";
                     }else{
-                        this.documentDepartureList[i].className = "bus";
+                        documentDepartureList[j].className = "bus";
                     }
-                    stopBoard.appendChild(this.documentDepartureList[i]);
+                    stopBoards[i].appendChild(documentDepartureList[j]);
+
                 }
             });
-        departureBoard.appendChild(stopBoard);
+
+      }
+      //wypluwa każdą listę przystanków na ekran
+      for (let i = 0; i < stopBoards.length; i++){
+        departureBoard.appendChild(stopBoards[i]);
+      }
     }
 }
 
-const departureBoard = document.getElementById("departureBoard");
-var stops = []; //tworzy array przystanków
-stops[0] = new Stop(13331);
-stops[1] = new Stop(13321);
-stops[2] = new Stop(14011);
-console.log(stops[0].stopName + stops[0].stopNumber + stops[0].APIUrl);
+function clearDepartureBoard(){
+  const departureBoard = document.getElementById("departureBoard");
+  departureBoard.innerHTML = "";
+}
 
+function addStop(){
+  userPreferences.addStop(document.getElementById("stopField").value);
+  userPreferences.saveToLocalStorage();
+  location.reload();
+}
 
+function removeStop(){
+  for(let i = 0; i<userPreferences.stops.length; i++){
+    if(userPreferences.stops[i].stopNumber == document.getElementById("stopField").value){
+      userPreferences.stops.splice(i,1); //usuwa ten konrketny wpis
+    }
+  }
+  userPreferences.saveToLocalStorage();
+  location.reload();
+}
+var userPreferences = {
+  stops: [],
+  addStop(stopNumber){
+      this.stops.push(new Stop(stopNumber));
+  },
+  saveToLocalStorage(){
+    localStorage.setItem('stops',JSON.stringify(this.stops));
+  },
+  readFromLocalStorage(){
+    if(JSON.parse(localStorage.getItem('stops'))!=null){
+      this.stops = JSON.parse(localStorage.getItem('stops'));
+    }
+  }
+};
+
+//userPreferences.addStop(13331);
+//userPreferences.addStop(13321);
+//userPreferences.addStop(14011);
+//userPreferences.saveToLocalStorage();
+userPreferences.readFromLocalStorage();
+createDepartureBoard();
+
+document.getElementById("addButton").addEventListener("click", addStop);
+document.getElementById("removeButton").addEventListener("click", removeStop);
