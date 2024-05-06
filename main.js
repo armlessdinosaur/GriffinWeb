@@ -16,6 +16,7 @@ function createDepartureBoard(){
     if (userPreferences.stops != null){
       for (let i = 0; i < userPreferences.stops.length; i++){
         stopBoards[i] = document.createElement("section");
+        stopBoards[i].className = "blueBlock";
         fetch(userPreferences.stops[i].APIUrl)
             .then((response) => response.json())
             .then(result => {
@@ -34,13 +35,13 @@ function createDepartureBoard(){
                     documentDepartureList[j] = document.createElement("li");
                     if(userPreferences.stops[i].departuresList[j].time_real != null)
                     {
-                        documentDepartureList[j].appendChild(document.createTextNode(userPreferences.stops[i].departuresList[j].line_number + " " + userPreferences.stops[i].departuresList[j].direction + " → " + userPreferences.stops[i].departuresList[j].time_real + " min"));
+                        documentDepartureList[j].appendChild(document.createTextNode(userPreferences.stops[i].departuresList[j].line_number + " " + userPreferences.stops[i].departuresList[j].direction.replace("Dworzec","Dw.").replace("Osiedle","Os.").replace("Plac","Pl.").slice(0,9) + " → " + userPreferences.stops[i].departuresList[j].time_real + " min"));
                     }else{
-                        documentDepartureList[j].appendChild(document.createTextNode(userPreferences.stops[i].departuresList[j].line_number + " " + userPreferences.stops[i].departuresList[j].direction + " → " + userPreferences.stops[i].departuresList[j].time_scheduled));
+                        documentDepartureList[j].appendChild(document.createTextNode(userPreferences.stops[i].departuresList[j].line_number + " " + userPreferences.stops[i].departuresList[j].direction.replace("Dworzec","Dw.").replace("Osiedle","Os.").replace("Plac","Pl.").slice(0,9) + " → " + userPreferences.stops[i].departuresList[j].time_scheduled));
                     }
-                    if("QWERTYUIOPASDFGHJKLZXCVBNM".includes(userPreferences.stops[i].departuresList[i].line_number)){
+                    if("QWERTYUIOPASDFGHJKLZXCVBNM".includes(userPreferences.stops[i].departuresList[j].line_number)){
                         documentDepartureList[j].className = "expressBus";
-                    }else if(Number(userPreferences.stops[i].departuresList[i].line_number) <= 12){
+                    }else if(Number(userPreferences.stops[i].departuresList[j].line_number) <= 12){
                         documentDepartureList[j].className = "tram";
                     }else{
                         documentDepartureList[j].className = "bus";
@@ -78,6 +79,11 @@ function removeStop(){
   userPreferences.saveToLocalStorage();
   location.reload();
 }
+
+function refreshWholePage(){
+  location.reload();
+}
+
 var userPreferences = {
   stops: [],
   addStop(stopNumber){
@@ -102,3 +108,4 @@ createDepartureBoard();
 
 document.getElementById("addButton").addEventListener("click", addStop);
 document.getElementById("removeButton").addEventListener("click", removeStop);
+document.getElementById("refreshButton").addEventListener("click", refreshWholePage);

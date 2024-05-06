@@ -25,30 +25,33 @@
 
 <body>
     <nav>
-        <h1><a href="index.html">Griffin</a></h1>
-        <p>Prosta tablica z odjazdami na żywo.</p>
+        <h1 class="redBlock"><a href="index.html">Griffin</a></h1>
+        <p class="textBlock">Prosta tablica z odjazdami autobusów i tramwajów w Szczecinie. Udanej podróży! :3</p>
     </nav>
     <main>
-      <section id="departureBoard">
-        <h2>Odjazdy</h2>
+      <section id="departureBoard" placeholder="Tu będą widoczne odjazdy po dodaniu w ustawieniach :3">
         <!--Tutaj lądują tablice przystankowe - stopBoard.-->
+        <input type="button" name="" value="odśwież >>" class="blueButton inputButton" id="refreshButton">
       </section>
       <section id="controlBoard">
-        <h2>Ustawienia</h2>
-        <h3>Dodaj przystanki</h3>
+        <h1 class="redBlock">Ustawienia</h1>
+        <p class="textBlock">
+          Poniżej możesz dodać swoje ulubione przystanki do wyświetlenia. Potrzebujesz do tego <b>numeru przystanku</b> (patrz: <a href="faq.html">faq</a>).
+        </p>
         <form class="" action="index.html" method="post" onkeydown="return event.key != 'Enter';">
-          <input type="text" name="" value="" placeholder="Wpisz numer przystanku" class="textField" id="stopField">
-          <input type="button" name="" value="Dodaj" class="inputButton" id="addButton">
-          <input type="button" name="" value="Usuń" class="inputButton" id="removeButton">
+          <input type="tel" name="" value="" placeholder="Wpisz numer przystanku" class="textField" id="stopField">
+          <input type="button" name="" value="dodaj przystanek >>" class="inputButton greenButton" id="addButton">
+          <input type="button" name="" value="usuń przystanek >>" class="inputButton redButton" id="removeButton">
         </form>
       </section>
     </main>
-    <footer>
-      <h2>O projekcie</h2>
-      <p>Prosty interfejs do wyświetlania odjazdów na wybranym przystanku w Szczecinie przy pomocy GTFS-RT dostarczonemu przez ZDiTM.
-      Jeśli wyświetla się czas w minutach, to dane są na żywo, jeśli wyświetla się godzina odjazdu, to pochodzi ona ze statycznego
-        rozkładu jazdy.</p>
-      <h4>Napisane z &lt;3 w Szczecinie - moka</h4>
+    <footer class="redBlock">
+      <li><a href="about.html">o projekcie</a></li>
+      <li><a href="faq.html">faq</a></li>
+      <li><a href="https://github.com/armlessdinosaur/GriffinWeb">github</a></li>
+      <li><a href="https://twitter.com/mokafur">twitter</a></li>
+      <li>wersja 3. "Gocław"</li>
+      <li>made in Szczecin with love by Moka</li>
     </footer>
 
     <script src="main.js"></script>

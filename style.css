@@ -1,49 +1,53 @@
 body{
     background-color: #FDF0D5;
-    color: #003049;
+    color: #780000;
     font-family: "Kode Mono", monospace;
     font-weight: normal;
     font-style: normal;
     font-size: 16pt;
+    max-width: 600px;
 }
-h1,h2,h4{
-    color: #780000;
+h1{
     font-family: "Jacquarda Bastarda 9", serif;
     font-weight: 500;
     font-style: normal;
-}
-h1{
     font-size: 2em;
+    color: #FDF0D5;
+    margin: 0;
+    padding: 0;
 }
-h3{
-    font-weight: 400;
-    color:#003049;
-}
-li{
-    list-style-type: none;
 
+h3{
+    font-weight: 700;
+    color: #FDF0D5;
+    font-size: 1em;
+    margin-bottom: 2pt;
+    margin-top: 0;
 }
-main,nav,footer{
-    width: 100%;
-    max-width: 500px;
+.textBlock>h4{
+  margin-bottom: 2pt;
+  margin-top: 0;
 }
-h2{
-    border-bottom-style: solid;
-    border-width: 0.08em;
-    padding-bottom: 0.7em;
+li::marker{
+    font-size: 0.6em;
+    font-weight: 600;
 }
-a{
-    color:#780000;
+.redBlock>li{
+    list-style-type: none;
+}
+
+.redBlock>a,.redBlock>li>a{
+    color: #FDF0D5;
     text-decoration: none;
 }
-.tram{
-    color: #669BBC;
+.redBlock>li>a,.textBlock>a{
+  text-decoration: underline;
 }
-.bus{
-    color: #606C38;
+.redBlock>li>a::after,p>a::after,section.textBlock>a{
+   content: " ↗";
 }
-.expressBus{
-    color: #780000;
+.textBlock>a{
+  color:inherit;
 }
 form{
     color: #003049;
@@ -52,28 +56,55 @@ form{
     font-style: normal;
     font-size: 16pt;
 }
+
+.tram{
+    list-style: "tram ";
+}
+.bus{
+    list-style: "bus ";
+}
+.expressBus{
+    list-style: "xprs ";
+}
 .inputButton,.textField{
     font-family: inherit;
     font-size: 1em;
     background-color: inherit;
-    border-color: #003049;
-    padding: 1em;
     border-width: 0.1em;
-    border-radius: 0;
     width: 100%;
+}
+.textField,.greenButton,.redButton,.redBlock,.blueBlock,.textField,.textBlock,.blueButton{
+  border-radius: 10px;
+  margin: 5pt;
+  padding: 1em;
 }
 .textField::placeholder{
     color: #003049;
 }
-#addButton{
-  background-color: #606C38;
-  color: #FDF0D5;
-  border: none;
-  padding: 1.1em;
+.greenButton{
+  color: #606C38;
+  border-color: #606C38;
 }
-#removeButton{
+.blueButton{
+  color: #003049;
+  border-color: #003049;
+}
+.redButton{
+  color: #780000;
+  border-color: #780000;
+}
+.blueBlock{
+  background-color: #003049;
+  color: #FDF0D5;
+  border-color: #606C38;
+}
+.redBlock{
   background-color: #780000;
   color: #FDF0D5;
-  border: none;
-  padding: 1.1em;
+}
+
+.textBlock{
+  border-width: 1em;
+  border-radius: 0;
+  border-color: #780000;
 }
